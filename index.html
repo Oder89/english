@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cümlə qurucu</title>
+<style>
+  body { font-family: Arial, sans-serif; background-color: #f0f0f0; text-align: center; padding: 30px; }
+  .game-container { background: #fff; padding: 20px; border-radius: 15px; max-width: 700px; margin: auto; box-shadow: 0 0 15px rgba(0,0,0,0.2); }
+  .word { display: inline-block; background-color: #007bff; color: white; padding: 12px; border-radius: 8px; margin: 5px; cursor: pointer; }
+  .word:hover { background-color: #0056b3; }
+  #sentence { margin-top: 20px; min-height: 50px; padding: 10px; background: #eee; border-radius: 10px; }
+  #result { margin-top: 20px; font-size: 18px; }
+  button { padding: 12px 25px; font-size: 16px; background-color: #28a745; color: white; border: none; border-radius: 10px; cursor: pointer; margin-top: 20px; }
+  button:hover { background-color: #218838; }
+</style>
+</head>
+<body>
+<div class="game-container">
+  <h1>🇬🇧 İngiliscə cümlə qur 🇦🇿</h1>
+  <div id="words"></div>
+  <div id="sentence">Cümləni qur: </div>
+  <div id="result"></div>
+  <button onclick="checkSentence()">Yoxla</button>
+  <button onclick="nextSentence()">Növbəti</button>
+</div>
+
+<script>
+const sentences = [
+  { en: "	I am a student.	"	},
+{ en: "	She is my friend.	"	},
+{ en: "	They are happy.	"	},
+{ en: "	We live in London.	"	},
+{ en: "	He likes coffee.	"	},
+{ en: "	I have a cat.	"	},
+{ en: "	My cat is black.	"	},
+{ en: " She goes to school.	"	},
+{ en: "	We eat dinner at 7 PM.	"	},
+{ en: "	He is my brother.	"	},
+{ en: "	I read a book.	"	},
+{ en: "	She watches TV.	"	},
+{ en: " They play football.	"	},
+{ en: "	We visit the park.	"	},
+{ en: "	I need a pen.	"	},
+{ en: "	He has a new car.	"	},
+{ en: "	She loves chocolate.	"	},
+{ en: "	We speak English.	"	},
+{ en: "	I write a letter.	"	},
+{ en: "	They cook dinner.	"	},
+{ en: "	He drives a bike.	"	},
+{ en: "	I listen to music.	"	},
+{ en: "	She sings well.	"	},
+{ en: "	We make lunch together.	"	},
+{ en: "	They study math.	"	},
+{ en: "	I walk to work.	"	},
+{ en: "	He is tall.	"	},
+{ en: "	She wears a red dress.	"	},
+{ en: "	We have a dog.	"	},
+{ en: "	I like apples.	"	},
+{ en: "	They are in the garden.	"	},
+{ en: "	She reads newspapers.	"	},
+{ en: "	We play games.	"	},
+{ en: "	I drink tea.	"	},
+{ en: "	He works in an office.	"	},
+{ en: "	They live near the school.	"	},
+{ en: "	She helps her mother.	"	},
+{ en: "	We have a picnic.	"	},
+{ en: "	I clean my room.	"	},
+{ en: "	He goes to bed early.	"	},
+{ en: "	She calls her friend.	"	},
+{ en: "	We swim in the pool.	"	},
+{ en: "	They watch movies.	"	},
+{ en: "	I take a shower.	"	},
+{ en: "	He makes breakfast.	"	},
+{ en: "	She writes emails.	"	},
+{ en: "	We like summer.	"	},
+{ en: "	They visit their grandparents.	"},
+{ en: " I love my family.	"	},
+{ en: "	He draws pictures.	"	},
+  { en: "I am learning English" },
+  { en: "The weather is sunny today" },
+  { en: "She reads a book" },
+  { en: "We are going to school" }
+];
+
+let correctSentence = "";
+let userSentence = [];
+
+function nextSentence() {
+  userSentence = [];
+  document.getElementById('result').innerText = "";
+  const random = sentences[Math.floor(Math.random() * sentences.length)];
+  correctSentence = random.en;
+  const words = random.en.split(" ").sort(() => 0.5 - Math.random());
+
+  const wordsHTML = words.map(word =>
+    `<div class="word" onclick="addWord('${word}')">${word}</div>`
+  ).join("");
+
+  document.getElementById('words').innerHTML = wordsHTML;
+  document.getElementById('sentence').innerText = "Cümləni qur: ";
+}
+
+function addWord(word) {
+  userSentence.push(word);
+  document.getElementById('sentence').innerText = "Cümləni qur: " + userSentence.join(" ");
+}
+
+function checkSentence() {
+  if (userSentence.join(" ") === correctSentence) {
+    document.getElementById('result').innerText = "✅ Doğru!";
+  } else {
+    document.getElementById('result').innerText = `❌ Səhv! Düzgün cümlə: "${correctSentence}"`;
+  }
+}
+
+nextSentence();
+</script>
+</body>
+</html>
